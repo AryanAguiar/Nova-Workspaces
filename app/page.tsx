@@ -6,14 +6,28 @@ import { useRouter } from 'next/navigation';
 export default function HomePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // redirect if not logged in
-    } else {
-      setLoading(false);
-    }
+    if(!token) return router.push('/login');
+
+    fetch('/api/me', {
+      headers: {
+        'Authorization': `Bearer ${token}`},
+      }).then((res) => res.json())
+      .then((data) => {
+        if(data.error) {
+          localStorage.removeItem('token');
+          return router.push('/login');
+        }
+        setUser(data.user);
+        setLoading(false);
+      }).catch((err) => {
+        console.error(err);
+        localStorage.removeItem('token');
+        router.push('/login');
+      });
   }, [router]);
 
   if (loading) return <p>Loading...</p>;

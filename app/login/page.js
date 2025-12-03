@@ -54,12 +54,20 @@ export default function LoginPage() {
                 <button type="submit">Login</button>
             </form>
 
-            <p style={{ marginTop: "1rem" }}>
-                Don’t have an account yet?{" "}
-                <Link href="/signup" style={{ color: "blue" }}>
-                    Sign Up!
-                </Link>
-            </p>
+            <div style={{ height: "1rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <p style={{ marginTop: "1rem" }}>
+                    Don’t have an account yet?{" "}
+                    <Link href="/signup" style={{ color: "blue" }}>
+                        Sign Up!
+                    </Link>
+                </p>
+
+                <p style={{ marginTop: "1rem", justifyContent: "center", alignItems: "center" }}>
+                    <Link href="/request-reset" style={{ color: "blue" }}>
+                        Forgot password?
+                    </Link>
+                </p>
+            </div>
         </div>
     );
 }

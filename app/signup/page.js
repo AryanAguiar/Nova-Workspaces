@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function SignupPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -15,7 +16,7 @@ export default function SignupPage() {
             const res = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, username, password }),
             });
 
             const data = await res.json();
@@ -42,6 +43,13 @@ export default function SignupPage() {
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    required
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
                     type="password"
